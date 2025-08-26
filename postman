@@ -1,0 +1,3 @@
+curl --location 'http://localhost:3000/users' \
+--header 'Content-Type: application/json' \
+--data-raw '{"name":"User12","email":"userini1a@inixindos.com"}'
