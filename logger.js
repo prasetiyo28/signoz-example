@@ -1,26 +1,30 @@
-// Unified logger: sends logs to SigNoz via OTLP HTTP and to console via Winston
+// Unified logger: sends logs to SigNoz via OTLP HTTP and to console via Pino
 require('dotenv').config();
-const winston = require('winston');
-const { DiagConsoleLogger, DiagLogLevel, diag } = require('@opentelemetry/api');
-const { Resource } = require('@opentelemetry/resources');
-const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
+const pino = require('pino');
+const { join } = require('path');
 
-// Only use Winston for logging
 const serviceName = process.env.OTEL_SERVICE_NAME || 'demo-node';
+const signozOtlpEndpoint = process.env.SIGNOZ_OTLP_ENDPOINT || 'http://localhost:4318/v1/logs';
 
-const winstonLogger = winston.createLogger({
-  level: 'info',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.printf(({ level, message, timestamp, ...meta }) => {
-      return `${timestamp} [${level.toUpperCase()}] ${message}${Object.keys(meta).length ? ' ' + JSON.stringify(meta) : ''}`;
-    })
-  ),
-  transports: [new winston.transports.Console()],
+const transport = pino.transport({
+  targets: [
+    {
+      target: 'pino-opentelemetry-transport',
+      options: {
+        endpoint: signozOtlpEndpoint,
+        serviceName: serviceName,
+        // You can add resource attributes here if needed
+      },
+      level: 'info',
+    },
+    {
+      target: 'pino-pretty',
+      options: { colorize: true },
+      level: 'info',
+    }
+  ]
 });
 
-// Remove broken logs.setGlobalLoggerProvider usage and OTEL logs API (not stable in Node.js as of 2025)
-// Only use Winston for logging
-// If you want to send logs to SigNoz, use a log forwarder or collector config
+const logger = pino(transport);
 
-module.exports = winstonLogger;
+module.exports = logger;

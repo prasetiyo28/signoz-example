@@ -1,0 +1,5 @@
+{"level":"info","message":"App listening on http://localhost:3000","timestamp":"2025-08-26T06:52:05.856Z"}
+{"body":{"email":"userini1a@inixindos.com","name":"User12"},"level":"info","message":"Create user request body","span_id":"a11d6c93c68833e2","timestamp":"2025-08-26T06:52:09.090Z","trace_flags":"01","trace_id":"10b39cee8b0bb8bafbb138c02a9eb4b4"}
+{"err":"SequelizeUniqueConstraintError: Validation error","level":"error","message":"Create user failed","span_id":"a11d6c93c68833e2","timestamp":"2025-08-26T06:52:09.107Z","trace_flags":"01","trace_id":"10b39cee8b0bb8bafbb138c02a9eb4b4"}
+{"body":{"email":"userini1a@inixi2ndos.com","name":"User122"},"level":"info","message":"Create user request body","span_id":"87bd6833accba752","timestamp":"2025-08-26T06:52:12.781Z","trace_flags":"01","trace_id":"7a1ecea278c74f5cf41f93ed82e4ce1c"}
+{"email":"userini1a@inixi2ndos.com","level":"info","message":"User created","span_id":"87bd6833accba752","timestamp":"2025-08-26T06:52:12.796Z","trace_flags":"01","trace_id":"7a1ecea278c74f5cf41f93ed82e4ce1c"}
